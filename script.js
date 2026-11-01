@@ -68,7 +68,7 @@ const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;let last
 if(canHover)document.addEventListener('mouseover',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;
  if(e.relatedTarget&&el.contains(e.relatedTarget))return;const n=performance.now();if(el===lastEl&&n-lastH<600)return;if(n-lastH<90)return;lastH=n;lastEl=el;if(unlocked)fire(hov[hk++%hov.length],.3)});
 document.addEventListener('mouseleave',()=>{lastEl=null});
-document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;if(unlocked)fire(clk[ck++%clk.length],.5)});
+document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;if(unlocked)fire(clk[ck++%clk.length],.3)});
 /* intro (index) */
 const run=()=>{try{sessionStorage.setItem('vgIntro','1')}catch(e){}
  [[390,.255,0],[1190,.28,1],[2200,.28,2]].forEach(([t,v,i])=>setTimeout(()=>play(v,i),t));

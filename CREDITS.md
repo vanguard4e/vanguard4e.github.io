@@ -7,7 +7,7 @@ All audio was made from scratch for this site with Python (numpy/scipy) by proce
 | sword-hit.wav | Blade scrape + uneven (non-harmonic) steel shimmer, light thud |
 | shield-slam.wav | Trailer-style BRAAM impact: 60→30 Hz sub drop, 80–150 Hz body, saturated saw brass, rumble tail, metal clang layer |
 | music.mp3 | 80 s looping ambient bed in D minor (Dm–B♭–F–C pads, D drone, quiet taiko-style pulses), 96 kbps |
-| ui-hover.wav / ui-click.wav | Menu hover tick and click confirm |
+| ui-hover.wav / ui-click.wav | Menu hover tick and soft muted click tap (v2, non-ringing) |
 | clang-fallback.js | Base64 copies of the sfx (fallback only) |
 
 Generator script: vanguard-art-kit/audio/gen_audio.py
