@@ -1,17 +1,19 @@
-document.addEventListener('DOMContentLoaded',()=>{
-const b=document.querySelector('.burger'),l=document.querySelector('.links');if(b)b.onclick=()=>l.classList.toggle('open');
+window.VGI=[];
+const vgBase=()=>{
+const b=document.querySelector('.burger'),l=document.querySelector('.links');if(b&&!b._vg){b._vg=1;b.onclick=()=>l.classList.toggle('open')}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 document.querySelectorAll('.tilt').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateY(${x*10}deg) rotateX(${-y*10}deg) translateY(-4px)`});c.addEventListener('mouseleave',()=>c.style.transform='')});
-const cv=document.getElementById('embers');if(cv&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const x=cv.getContext('2d');let W,H,P=[];const rs=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight};rs();addEventListener('resize',rs);
+const cv=document.getElementById('embers');if(cv&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const x=cv.getContext('2d');let W,H,P=[];const rs=()=>{if(!cv.isConnected)return removeEventListener('resize',rs);W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight};rs();addEventListener('resize',rs);
 for(let i=0;i<90;i++)P.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.5,v:Math.random()*.6+.2,d:Math.random()*.6-.3,a:Math.random()});
-(function f(){x.clearRect(0,0,W,H);P.forEach(p=>{p.y-=p.v;p.x+=p.d;p.a+=.02;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle=`rgba(243,${180+Math.random()*30|0},90,${.4+.4*Math.sin(p.a)})`;x.shadowBlur=8;x.shadowColor='#f3d27a';x.fill()});requestAnimationFrame(f)})()}
-});
-document.addEventListener('DOMContentLoaded',()=>{const t=[...document.querySelectorAll('.tabs a')];if(!t.length)return;
+(function f(){if(!cv.isConnected)return;x.clearRect(0,0,W,H);P.forEach(p=>{p.y-=p.v;p.x+=p.d;p.a+=.02;if(p.y<-5){p.y=H+5;p.x=Math.random()*W}x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle=`rgba(243,${180+Math.random()*30|0},90,${.4+.4*Math.sin(p.a)})`;x.shadowBlur=8;x.shadowColor='#f3d27a';x.fill()});requestAnimationFrame(f)})()}
+};VGI.push(vgBase);
+let vgShow=null;addEventListener('hashchange',()=>vgShow&&vgShow());
+VGI.push(()=>{vgShow=null;const t=[...document.querySelectorAll('.tabs a')];if(!t.length)return;
 const show=()=>{const h=location.hash.slice(1),id=t.some(a=>a.hash==='#'+h)?h:t[0].hash.slice(1);t.forEach(a=>a.classList.toggle('on',a.hash==='#'+id));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id===id))};
-t.forEach(a=>a.onclick=e=>{e.preventDefault();history.replaceState(null,'',a.hash);show()});addEventListener('hashchange',show);show()});
+t.forEach(a=>a.onclick=e=>{e.preventDefault();history.replaceState(history.state,'',a.hash);show()});vgShow=show;show()});
 /* Raid times in visitor's local zone. Raids: 7-10 PM America/Los_Angeles. */
-document.addEventListener('DOMContentLoaded',()=>{
+VGI.push(()=>{
 const els=document.querySelectorAll('.raidtime');if(!els.length||!window.Intl)return;
 const TZ='America/Los_Angeles',DAYS={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
 const local=Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -30,6 +32,7 @@ els.forEach(el=>{const days=el.dataset.days.split(',');let txt=[],range='',tz=''
   const a=hm(s),b=hm(e),ap=a.slice(-2)===b.slice(-2)?a.slice(0,-3):a;range=(ap+'–'+b).replace(/ /g,' ');
   range=range;const late=f(new Date(e-1),{weekday:'short'})!==f(s,{weekday:'short'});if(late&&range.indexOf('next day')<0)range+=' (ends next day)';tz=zone(s)});
  const sp=document.createElement('span');sp.className='localtime';sp.textContent='Your time: '+txt.join(' & ')+' '+range+' '+tz;el.parentNode.appendChild(sp)})});
+document.addEventListener('DOMContentLoaded',()=>VGI.forEach(f=>{try{f()}catch(e){console.error(e)}}));
 /* Vanguard audio: intro sfx (index), background music + UI sounds (all pages). Plain <audio> elements: works on file:// and hosted. Default muted. */
 document.addEventListener('DOMContentLoaded',()=>{
 const R=document.documentElement,KEY='vgSound',MT='vgMusicT';let on=false;try{on=localStorage.getItem(KEY)==='on'}catch(e){}
@@ -58,7 +61,7 @@ const g=()=>{unlock();if(!introBusy())musicStart()};
 document.addEventListener('pointerdown',g,true);document.addEventListener('keydown',g,true);
 /* toggle */
 const ui=()=>{btn.textContent=on?'🔊':'🔇';btn.title=on?'Sound on':'Sound off';btn.setAttribute('aria-pressed',on)};ui();
-btn.addEventListener('click',()=>{unlock();on=!on;try{localStorage.setItem(KEY,on?'on':'off')}catch(e){}ui();if(on){play(.9,0);if(!introBusy())musicStart()}else{all.forEach(a=>{try{a.pause()}catch(e){}});musicStop()}});
+btn.addEventListener('click',()=>{unlock();on=!on;try{localStorage.setItem(KEY,on?'on':'off')}catch(e){}ui();if(on){play(.45,0);if(!introBusy())musicStart()}else{all.forEach(a=>{try{a.pause()}catch(e){}});musicStop()}});
 /* UI sounds */
 const SEL='nav a,.links a,.tiles .card,a.card,button,.btn,.tabs a,.burger';
 const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;let lastH=0,lastEl=null;
@@ -68,7 +71,7 @@ document.addEventListener('mouseleave',()=>{lastEl=null});
 document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;if(unlocked)fire(clk[ck++%clk.length],.5)});
 /* intro (index) */
 const run=()=>{try{sessionStorage.setItem('vgIntro','1')}catch(e){}
- [[390,.9,0],[1190,1,1],[2200,1,2]].forEach(([t,v,i])=>setTimeout(()=>play(v,i),t));
+ [[390,.45,0],[1190,.5,1],[2200,.5,2]].forEach(([t,v,i])=>setTimeout(()=>play(v,i),t));
  setTimeout(musicStart,2500);setTimeout(()=>R.classList.remove('intro'),3500)};
 const sp=document.querySelector('.vg-splash');
 if(R.classList.contains('intro')){
@@ -80,3 +83,28 @@ if(R.classList.contains('intro')){
    document.removeEventListener('keydown',kd);sp.classList.add('out');R.classList.remove('intro-wait');run();setTimeout(()=>sp.remove(),700)};
   const kd=e=>{if(e.key==='Enter'||e.key===' '||e.code==='Space'){if(e.target===btn||e.target===hb)return;e.preventDefault();go()}};
   eb.addEventListener('click',go);sp.addEventListener('click',e=>{if(e.target===sp)go()});document.addEventListener('keydown',kd);setTimeout(()=>eb.focus(),50)}}});
+
+/* Client-side navigation (PJAX): keeps the single <audio> + mute button alive so music never restarts. Falls back to normal navigation on file:// or any error. */
+(function(){if(location.protocol==='file:'||!window.fetch||!history.pushState)return;
+const pageOf=u=>u.origin+u.pathname.replace(/\/index\.html$/,'/');
+let busy=0,cur=pageOf(location);history.replaceState({vg:1},'',location.href);
+async function go(url,push){const my=++busy;let html;
+ try{const r=await fetch(url.href,{credentials:'same-origin'});if(!r.ok||!/html/.test(r.headers.get('content-type')||''))throw 0;html=await r.text()}catch(e){location.href=url.href;return}
+ if(my!==busy)return;cur=pageOf(url);
+ const d=new DOMParser().parseFromString(html,'text/html'),nm=d.querySelector('main'),om=document.querySelector('main');
+ if(!nm||!om){location.href=url.href;return}
+ om.replaceWith(document.importNode(nm,true));document.title=d.title;
+ const nl=d.querySelector('nav .links'),ol=document.querySelector('nav .links');if(nl&&ol){ol.innerHTML=nl.innerHTML;ol.classList.remove('open')}
+ const nf=d.querySelector('footer'),of=document.querySelector('footer');if(nf&&of)of.innerHTML=nf.innerHTML;
+ document.body.className=d.body.className;
+ if(push)history.pushState({vg:1},'',url.href);cur=pageOf(url);
+ VGI.forEach(f=>{try{f()}catch(e){console.error(e)}});
+ const h=url.hash&&document.getElementById(decodeURIComponent(url.hash.slice(1)));if(h)h.scrollIntoView();else scrollTo(0,0)}
+document.addEventListener('click',e=>{if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+ const a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target&&a.target!=='_self'||a.hasAttribute('download'))return;
+ const raw=a.getAttribute('href');if(!raw||raw[0]==='#')return;
+ const u=new URL(a.href,location.href);if(u.origin!==location.origin||!/(\/|\.html)$/.test(u.pathname))return;
+ if(pageOf(u)===pageOf(location)&&u.hash)return; /* same-page anchor: let browser handle */
+ e.preventDefault();go(u,true)});
+addEventListener('popstate',()=>{const u=new URL(location.href);if(pageOf(u)!==cur)go(u,false)});
+})();
