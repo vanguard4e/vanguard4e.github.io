@@ -61,7 +61,7 @@ const g=()=>{unlock();if(!introBusy())musicStart()};
 document.addEventListener('pointerdown',g,true);document.addEventListener('keydown',g,true);
 /* toggle */
 const ui=()=>{btn.textContent=on?'🔊':'🔇';btn.title=on?'Sound on':'Sound off';btn.setAttribute('aria-pressed',on)};ui();
-btn.addEventListener('click',()=>{unlock();on=!on;try{localStorage.setItem(KEY,on?'on':'off')}catch(e){}ui();if(on){play(.34,0);if(!introBusy())musicStart()}else{all.forEach(a=>{try{a.pause()}catch(e){}});musicStop()}});
+btn.addEventListener('click',()=>{unlock();on=!on;try{localStorage.setItem(KEY,on?'on':'off')}catch(e){}ui();if(on){play(.255,0);if(!introBusy())musicStart()}else{all.forEach(a=>{try{a.pause()}catch(e){}});musicStop()}});
 /* UI sounds */
 const SEL='nav a,.links a,.tiles .card,a.card,button,.btn,.tabs a,.burger';
 const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;let lastH=0,lastEl=null;
@@ -71,7 +71,7 @@ document.addEventListener('mouseleave',()=>{lastEl=null});
 document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;if(unlocked)fire(clk[ck++%clk.length],.5)});
 /* intro (index) */
 const run=()=>{try{sessionStorage.setItem('vgIntro','1')}catch(e){}
- [[390,.34,0],[1190,.375,1],[2200,.375,2]].forEach(([t,v,i])=>setTimeout(()=>play(v,i),t));
+ [[390,.255,0],[1190,.28,1],[2200,.28,2]].forEach(([t,v,i])=>setTimeout(()=>play(v,i),t));
  setTimeout(musicStart,2500);setTimeout(()=>R.classList.remove('intro'),3500)};
 const sp=document.querySelector('.vg-splash');
 if(R.classList.contains('intro')){
