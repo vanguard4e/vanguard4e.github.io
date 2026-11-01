@@ -41,7 +41,7 @@ if(!btn){btn=document.createElement('button');btn.className='sound-toggle';btn.s
 const mk=(f,fb)=>{const a=document.createElement('audio');a.preload='auto';a.src=f;a.dataset.fbk=fb||'';a.style.display='none';
  a.addEventListener('error',()=>{const d=window[a.dataset.fbk];if(!a.dataset.fb&&d){a.dataset.fb=1;a.src=d}});document.body.appendChild(a);return a};
 const pool=[mk('sword-hit.wav','VG_SWORD_FALLBACK'),mk('sword-hit.wav','VG_SWORD_FALLBACK'),mk('shield-slam.wav','VG_SLAM_FALLBACK')];
-const hov=[0,1,2].map(()=>mk('ui-hover.wav','VG_HOVER_FALLBACK')),clk=[0,1].map(()=>mk('ui-click-v2.wav','VG_CLICK_FALLBACK'));
+const hov=[0,1,2].map(()=>mk('ui-hover.wav','VG_HOVER_FALLBACK')),clk=[0,1].map(()=>mk('ui-click-v3.wav','VG_CLICK_FALLBACK'));
 const mus=mk('music.mp3');mus.loop=true;mus.volume=0;mus.addEventListener('loadedmetadata',()=>{try{const t=+sessionStorage.getItem(MT);if(t&&t<mus.duration)mus.currentTime=t}catch(e){}},{once:true});const MV=.25;
 const all=[...pool,...hov,...clk];let unlocked=false;
 const fire=(a,v)=>{if(!on||!a)return;a._prime=false;try{a.pause();a.currentTime=0}catch(e){}a.muted=false;a.volume=v;
@@ -68,7 +68,7 @@ const canHover=matchMedia('(hover: hover) and (pointer: fine)').matches;let last
 if(canHover)document.addEventListener('mouseover',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;
  if(e.relatedTarget&&el.contains(e.relatedTarget))return;const n=performance.now();if(el===lastEl&&n-lastH<600)return;if(n-lastH<90)return;lastH=n;lastEl=el;if(unlocked)fire(hov[hk++%hov.length],.3)});
 document.addEventListener('mouseleave',()=>{lastEl=null});
-document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;if(unlocked)fire(clk[ck++%clk.length],.3)});
+document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest(SEL);if(!el||el===btn||el.closest('.vg-splash'))return;if(unlocked)fire(clk[ck++%clk.length],.32)});
 /* intro (index) */
 const run=()=>{try{sessionStorage.setItem('vgIntro','1')}catch(e){}
  [[390,.255,0],[1190,.28,1],[2200,.28,2]].forEach(([t,v,i])=>setTimeout(()=>play(v,i),t));
