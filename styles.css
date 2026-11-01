@@ -128,3 +128,7 @@ nav.nv-b .links a.active::after{background:var(--gold2);height:2px}
 nav.nv-b .brand{flex-direction:row;font-size:16px;letter-spacing:4px}nav.nv-b .brand img{width:36px}
 nav.nv-b .links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#0b0f17!important;padding:10px 20px;border-top:0;text-align:center}
 nav.nv-b .links.open{display:flex}}
+
+.discord-link{color:var(--gold2);text-decoration:none;font-weight:bold;border-bottom:1px dotted var(--gold)}.discord-link:hover{text-decoration:underline;border-bottom-color:transparent}
+.discord-btn{font-size:14px;padding:9px 22px}
+.discord-cta{margin-top:18px}
