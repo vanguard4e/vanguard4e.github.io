@@ -41,7 +41,7 @@ if(!btn){btn=document.createElement('button');btn.className='sound-toggle';btn.s
 const mk=(f,fb)=>{const a=document.createElement('audio');a.preload='auto';a.src=f;a.dataset.fbk=fb||'';a.style.display='none';
  a.addEventListener('error',()=>{const d=window[a.dataset.fbk];if(!a.dataset.fb&&d){a.dataset.fb=1;a.src=d}});document.body.appendChild(a);return a};
 const pool=[mk('sword-hit.wav','VG_SWORD_FALLBACK'),mk('sword-hit.wav','VG_SWORD_FALLBACK'),mk('shield-slam.wav','VG_SLAM_FALLBACK')];
-const hov=[0,1,2].map(()=>mk('ui-hover.wav','VG_HOVER_FALLBACK')),clk=[0,1].map(()=>mk('ui-click.wav','VG_CLICK_FALLBACK'));
+const hov=[0,1,2].map(()=>mk('ui-hover.wav','VG_HOVER_FALLBACK')),clk=[0,1].map(()=>mk('ui-click-v2.wav','VG_CLICK_FALLBACK'));
 const mus=mk('music.mp3');mus.loop=true;mus.volume=0;mus.addEventListener('loadedmetadata',()=>{try{const t=+sessionStorage.getItem(MT);if(t&&t<mus.duration)mus.currentTime=t}catch(e){}},{once:true});const MV=.25;
 const all=[...pool,...hov,...clk];let unlocked=false;
 const fire=(a,v)=>{if(!on||!a)return;a._prime=false;try{a.pause();a.currentTime=0}catch(e){}a.muted=false;a.volume=v;
