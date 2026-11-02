@@ -132,3 +132,5 @@ nav.nv-b .links.open{display:flex}}
 .discord-link{color:var(--gold2);text-decoration:none;font-weight:bold;border-bottom:1px dotted var(--gold)}.discord-link:hover{text-decoration:underline;border-bottom-color:transparent}
 .discord-btn{font-size:14px;padding:9px 22px}
 .discord-cta{margin-top:18px}
+
+.vg-sound-note{margin:14px 0 0;font-size:.95rem;opacity:.8;letter-spacing:.03em;text-align:center}
