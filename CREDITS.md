@@ -1,4 +1,4 @@
-# Vanguard site – audio credits
+# High Guard site – audio credits
 
 All audio was made from scratch for this site with Python (numpy/scipy) by procedural synthesis. There are no samples or third-party recordings in it. The audio is original work, dedicated to the public domain under CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/).
 

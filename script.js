@@ -33,7 +33,7 @@ els.forEach(el=>{const days=el.dataset.days.split(',');let txt=[],range='',tz=''
   range=range;const late=f(new Date(e-1),{weekday:'short'})!==f(s,{weekday:'short'});if(late&&range.indexOf('next day')<0)range+=' (ends next day)';tz=zone(s)});
  const sp=document.createElement('span');sp.className='localtime';sp.textContent='Your time: '+txt.join(' & ')+' '+range+' '+tz;el.parentNode.appendChild(sp)})});
 document.addEventListener('DOMContentLoaded',()=>VGI.forEach(f=>{try{f()}catch(e){console.error(e)}}));
-/* Vanguard audio: intro sfx (index), background music + UI sounds (all pages). Plain <audio> elements: works on file:// and hosted. Default muted. */
+/* High Guard audio: intro sfx (index), background music + UI sounds (all pages). Plain <audio> elements: works on file:// and hosted. Default muted. */
 document.addEventListener('DOMContentLoaded',()=>{
 const R=document.documentElement,KEY='vgSound',MT='vgMusicT';let on=false;try{on=localStorage.getItem(KEY)==='on'}catch(e){}
 let btn=document.querySelector('.sound-toggle');
